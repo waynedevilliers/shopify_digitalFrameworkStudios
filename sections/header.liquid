@@ -1,3 +1,5 @@
+{% assign main_menu_linklist  = linklists[section.settings.menu].links %} 
+
 <div class="relative bg-white" x-data="{ mobileMenuOpen: false }">
   <div class="mx-auto px-4 sm:px-6">
     
@@ -8,15 +10,15 @@
       </div>
 
       <!-- Mobile hamburger icon -->
-      <div class="-mr-2 -my-2 ml-3 md:hidden">
+      <section class="-mr-2 -my-2 ml-3 md:hidden">
         <button @click="mobileMenuOpen = true" type="button" class="bg-white p-2 inline-flex items-center justify-center focus:outline-none">
             {% render 'icon-hamburger' %}
         </button>
-      </div>
+      </section>
 
       <!-- NAVIGATION MENU -->
       <nav x-data="{ open: false }" class="hidden md:flex space-x-10">
-        {% for link in linklists.main-menu.links %}
+        {% for link in main_menu_linklist %}
           {% if link.links != blank %}
             <div class="relative">
               <button @click="open = !open" type="button" class="inline-flex items-center text-base text-gray-500 hover:text-gray-900">
@@ -66,21 +68,21 @@
         <div class="p-5 divide-y-2 divide-gray-50">
 
             <!-- MOBILE MENU HEADER -->
-            <div class="flex items-center justify-between pb-3">
+            <section class="flex items-center justify-between pb-3">
                 <div>
-                    <h1 class="text-lg text-gray-500">{{ shop.name }}</h1>
+                    <h1 class="text-lg text-gray-500">{{  section.settings.mobile_menu_title}}</h1>
                 </div>
                 <div class="-mr-2">
                     <button @click="mobileMenuOpen = false" type="button" class="bg-white rounded-md p-2 text-gray-500">
                         {% render 'icon-close' %}
                     </button> 
                 </div>
-            </div>
+            </section>
 
             <!-- MOBILE NAVIGATION LINKS -->
-            <div class="pt-3">
+            <nav class="pt-3">
                 <nav class="grid gap-y-7">
-                  {% for link in linklists.main-menu.links %}
+                  {% for link in main_menu_linklist %}
                     {% assign link_handle = link.handle | replace: '-', '_' %}
                     {% if link.links != blank %}
                       <div x-data="{ [ '{{ link_handle }}' ]: false }" class="relative">
@@ -104,8 +106,52 @@
                     {% endif %} 
                   {% endfor %}
                 </nav>
-            </div>
+            </nav>
         </div>
     </div>
   </div>
 </div>
+
+{% schema %}
+{
+"name": "Header", 
+"settings": [
+  {
+    "type": "text",
+    "id": "mobile_menu_title",
+    "label": "Mobile Menu Title",
+    "default": "Menu",
+    "info": "This is the title for the mobile menu window",
+  }, 
+  {
+    "type": "link_list",
+    "id": "main-menu",
+    "label": "Main Menu",
+    "default": "main-menu",
+    "info": "This is the main menu for the store",
+  },
+  {
+    "type": "text",
+    "id": "logo",
+    "label": "Logo",
+    "default": "Logo",
+    "info": "This is the logo for the store",
+  },
+  {
+    "type": "text",
+    "id": "logo_url",
+    "label": "Logo URL",
+    "default": "https://via.placeholder.com/150",
+    "info": "This is the URL for the logo",
+  },
+  {
+    "type": "text",
+    "id": "logo_alt",
+    "label": "Logo Alt Text",
+    "default": "Logo",
+    "info": "This is the alt text for the logo",
+  },
+
+]
+}
+{% endschema %}
