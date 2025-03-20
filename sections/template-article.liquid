@@ -1,149 +1,69 @@
-<div class="article-container">
-    {% for block in section.blocks %}
-        {% case block.type %}
-            {% when "article_title" %}
-                <div class="flex justify-center items-center">
-                    <h1 class="text-3xl font-bold">{{ article.title }}</h1>
-                </div>
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'article_title' %}
+      <h1>{{ article.title }}</h1>
+    {% when 'article_author' %}
+      {% if section.settings.enable_author %}
+        <small>{{ article.author }}</small>
+      {% endif %}
+    {% when 'article_published_date' %}
+      {% if section.settings.enable_published_date %}
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{- article.published_at | date: '%Y-%m-%d' -}}
+        </time>
+      {% endif %}
+    {% when 'featured_image' %}
+      <img src="{{ article.image | img_url: 'large'}}" alt="{{ article.image.alt }}">
+    {% when 'article_content' %}
+      <div class="">{{ article.content }}</div>
+    {% else %}
 
-            {% when "article_author" %}
-                {% if section.settings.enable_author %}
-                    <div class="flex justify-center items-center mt-2 text-sm text-gray-600">
-                        <small>By {{ article.author }}</small>
-                    </div>
-                {% endif %}
-
-            {% when "article_published_date" %}
-                {% if section.settings.enable_published_date %}
-                    <div class="flex justify-center items-center text-sm text-gray-500">
-                        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-                            Published on {{ article.published_at | date: '%B %d, %Y' }}
-                        </time>
-                    </div>
-                {% endif %}
-
-            {% when "featured_image" %}
-                {% if article.image %}
-                    <div class="flex justify-center items-center my-6">
-                        <img 
-                            src="{{ article.image | image_url: width: 800 }}" 
-                            loading="lazy" 
-                            alt="{{ article.image.alt | escape }}"
-                            class="rounded-lg shadow-md"
-                        >
-                    </div>
-                {% endif %}
-
-            {% when "article_content" %}
-                <div class="prose max-w-2xl mx-auto">
-                    {{ article.content }}
-                </div>
-
-        {% endcase %}
-    {% endfor %}
-
-    {% if article.tags.size > 0 %}
-        <div class="mt-6">
-            <h3 class="text-lg font-semibold">Tags:</h3>
-            <ul class="flex gap-2 mt-2">
-                {% for tag in article.tags %}
-                    <li class="bg-gray-200 text-gray-800 px-3 py-1 rounded-lg text-sm">{{ tag }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
-    {% if article.comments.size > 0 %}
-        <div class="mt-10">
-            <h2 class="text-xl font-semibold">Comments</h2>
-            <ul class="mt-4 space-y-4">
-                {% for comment in article.comments %}
-                    <li class="p-4 border border-gray-200 rounded-lg">
-                        <strong>{{ comment.author }}</strong>
-                        <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">
-                            {{ comment.created_at | date: '%B %d, %Y' }}
-                        </time>
-                        <p class="mt-2">{{ comment.content }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
-    {% if article.comments_allowed %}
-        <div class="mt-10">
-            <h2 class="text-xl font-semibold">Leave a Comment</h2>
-            <form action="{{ article.url }}#comments" method="post" class="mt-4 space-y-4">
-                <div>
-                    <label for="comment_author" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" name="comment[author]" id="comment_author" required 
-                           class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm">
-                </div>
-
-                <div>
-                    <label for="comment_content" class="block text-sm font-medium text-gray-700">Comment</label>
-                    <textarea name="comment[content]" id="comment_content" required
-                              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"></textarea>
-                </div>
-
-                <button type="submit" 
-                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700">
-                    Submit
-                </button>
-            </form>
-        </div>
-    {% endif %}
-</div>
+  {% endcase %}
+{% endfor %}
 
 {% schema %}
 {
-    "name": "Template Article",
-    "settings": [
-        {
-            "type": "checkbox",
-            "id": "enable_author",
-            "default": true,
-            "label": "Display Author Name"
-        },
-        {
-            "type": "checkbox",
-            "id": "enable_published_date",
-            "default": true,
-            "label": "Display Published Date"
-        }
-    ],
-    "blocks": [
-        {
-            "type": "article_title",
-            "name": "Title",
-            "limit": 1
-        },
-        {
-            "type": "article_author",
-            "name": "Author",
-            "limit": 1
-        },
-        {
-            "type": "article_published_date",
-            "name": "Published Date",
-            "limit": 1
-        },
-        {
-            "type": "featured_image",
-            "name": "Thumbnail",
-            "limit": 1
-        },
-        {
-            "type": "article_content",
-            "name": "Content",
-            "limit": 1
-        }
-    ],
-    "presets": [
-        {
-            "name": "Template Article",
-            "category": "Blog"
-        }
-    ]
+  "name": "Template Article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_author",
+      "default": true,
+      "label": "Display Author Name"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_published_date",
+      "default": true,
+      "label": "Display Published Date"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "article_author",
+      "name": "Author",
+      "limit": 1
+    },
+    {
+      "type": "article_published_date",
+      "name": "Published Date",
+      "limit": 1
+    },
+    {
+      "type": "featured_image",
+      "name": "Thumbnail",
+      "limit": 1
+    },
+    {
+      "type": "article_content",
+      "name": "Content",
+      "limit": 1
+    }
+  ]
 }
 {% endschema %}
