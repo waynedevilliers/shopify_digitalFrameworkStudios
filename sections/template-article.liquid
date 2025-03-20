@@ -1,26 +1,74 @@
-{% for block in section.blocks %}
-  {% case block.type %}
-    {% when 'article_title' %}
-      <h1>{{ article.title }}</h1>
-    {% when 'article_author' %}
-      {% if section.settings.enable_author %}
-        <small>{{ article.author }}</small>
-      {% endif %}
-    {% when 'article_published_date' %}
-      {% if section.settings.enable_published_date %}
-        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-          {{- article.published_at | date: '%Y-%m-%d' -}}
-        </time>
-      {% endif %}
-    {% when 'featured_image' %}
-      <img src="{{ article.image | img_url: 'large'}}" alt="{{ article.image.alt }}">
-    {% when 'article_content' %}
-      <div class="">{{ article.content }}</div>
-    {% else %}
+<article class="py-8 md:py-16 max-w-7xl mx-auto">
+    
+    {% for block in section.blocks %}
+        {% case block.type %}
 
-  {% endcase %}
-{% endfor %}
+            {% comment %} 
+            Article Title Section 
+            Displays the blog title and article title 
+            {% endcomment %}
+            {% when 'article_title' %}
+            <header class="text-center">
+                <a href="{{ blog.url }}" class="text-black hover:text-blue-700">{{ blog.title }}</a>
+                <h1 class="text-4xl md:text-6xl font-medium">{{ article.title }}</h1>
+            </header>  
 
+            {% comment %} 
+            Author Section 
+            Displays the author's name if enabled in settings 
+            {% endcomment %}
+            {% when 'article_author' %}
+            {% if section.settings.enable_author %}
+                <p class="text-center text-gray-600 text-sm">By {{ article.author }}</p>
+            {% endif %}
+
+            {% comment %} 
+            Published Date Section 
+            Shows the article's published date if enabled in settings 
+            {% endcomment %}
+            {% when 'article_published_date' %}
+            {% if section.settings.enable_published_date %}
+                <p class="text-center text-gray-500 text-sm">
+                    <time datetime="{{ article.published_at | date: format: 'on_date' }}">
+                        {{ article.published_at | date: format: 'on_date' }}
+                    </time>
+                </p>
+            {% endif %}
+
+            {% comment %} 
+            Featured Image Section 
+            Displays the article's main image or a placeholder if none exists 
+            {% endcomment %}
+            {% when 'featured_image' %}
+            <figure class="rounded-lg overflow-hidden shadow-lg py-4">
+                {% if article.image %}
+                    <img class="w-full h-80 md:h-96 object-cover p-5" 
+                         src="{{ article.image | img_url: 'large' }}" 
+                         alt="{{ article.image.alt }}">
+                {% else %}
+                    {% assign placeholder_image = 'lifestyle-2' %}
+                    {{ placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover p-5' }}
+                {% endif %}
+            </figure>
+
+            {% comment %} 
+            📖 Article Content Section 
+            Displays the main content of the article using Shopify's Liquid output 
+            {% endcomment %}
+            {% when 'article_content' %}
+            <div class="prose max-w-4xl mx-auto">
+                {{ article.content }}
+            </div>
+
+        {% endcase %}
+    {% endfor %}
+
+</article>
+
+{% comment %} 
+Schema Configuration 
+Defines settings and blocks available for this section in Shopify's theme editor 
+{% endcomment %}
 {% schema %}
 {
   "name": "Template Article",
@@ -67,3 +115,4 @@
   ]
 }
 {% endschema %}
+
