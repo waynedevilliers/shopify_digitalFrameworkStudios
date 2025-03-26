@@ -8,6 +8,7 @@
  * ------------------------------------------------------------
  */
 {
+  "name": "Template Article",
   "sections": {
     "template": {
       "type": "template-article",
@@ -35,9 +36,9 @@
       },
       "block_order": [
         "title",
+        "author",
         "published_date",
         "thumbnail",
-        "author",
         "content"
       ],
       "settings": {
