@@ -1,3 +1,26 @@
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ article.title | escape }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ article.author | escape }}"
+    },
+    "datePublished": "{{ article.published_at | date: "%Y-%m-%d" }}",
+    "image": "{{ article.image | image_url: 'master' | prepend: shop.url }}",
+    "articleBody": {{ article.content | strip_html | json }},
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ shop.name | escape }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ settings.logo | image_url: 'medium' | prepend: shop.url }}"
+      }
+    }
+  }
+</script>
+
 <article class="py-8 md:py-16 max-w-7xl mx-auto" itemscope itemtype="https://schema.org/BlogPosting">
   {% for block in section.blocks %}
     {% case block.type %}
