@@ -1,42 +1,32 @@
-<article class="py-8 md:py-16 max-w-7xl mx-auto">
+<article class="py-8 md:py-16 max-w-7xl mx-auto" itemscope itemtype="https://schema.org/BlogPosting">
   {% for block in section.blocks %}
     {% case block.type %}
-        {% comment %}
-          Article Title Section
-          Displays the blog title and article title
-        {% endcomment %}
+        // Article Title Section
       {% when 'article_title' %}
         <header class="text-center">
           <a href="{{ blog.url }}" class="text-black hover:text-blue-700">{{ blog.title }}</a>
-          <h1 class="text-4xl md:text-6xl font-medium">{{ article.title }}</h1>
+          <h1 class="text-4xl md:text-6xl font-medium" itemprop="headline">{{ article.title }}</h1>
         </header>
 
-        {% comment %}
-          Author Section
-          Displays the author's name if enabled in settings
-        {% endcomment %}
+        // Author Section
       {% when 'article_author' %}
         {% if section.settings.enable_author %}
-          <p class="text-center text-gray-600 text-sm">By {{ article.author }}</p>
+          <p class="text-center text-gray-600 text-sm" itemscope itemtype="https://schema.org/Person" itemprop="author">
+            By {{ article.author }}
+          </p>
         {% endif %}
 
-        {% comment %}
-          Published Date Section
-          Shows the article's published date if enabled in settings
-        {% endcomment %}
+        // Published Date Section
       {% when 'article_published_date' %}
         {% if section.settings.enable_published_date %}
           <p class="text-center text-gray-500 text-sm">
-            <time datetime="{{ article.published_at | date: format: 'on_date' }}">
+            <time itemprop="datePublished dateCreated" datetime="{{ article.published_at | date: format: 'on_date' }}">
               {{ article.published_at | date: format: 'on_date' }}
             </time>
           </p>
         {% endif %}
 
-        {% comment %}
-          Featured Image Section
-          Displays the article's main image or a placeholder if none exists
-        {% endcomment %}
+        // Featured Image Section
       {% when 'featured_image' %}
         <figure class="rounded-lg overflow-hidden shadow-lg py-4">
           {% if article.image %}
@@ -51,10 +41,7 @@
           {% endif %}
         </figure>
 
-        {% comment %}
-          📖 Article Content Section
-          Displays the main content of the article using Shopify's Liquid output
-        {% endcomment %}
+        // 📖 Article Content Section
       {% when 'article_content' %}
         <div class="prose max-w-4xl mx-auto">
           {{ article.content }}
@@ -62,12 +49,12 @@
     {% endcase %}
   {% endfor %}
 
-  {% if blog.comments_enabled? %}
-    <!-- 🧠 Comments Section -->
+  // Comments Section
+  {% if section.settings.enable_comments and blog.comments_enabled? %}
     <section id="comments" aria-labelledby="comments-title" class="max-w-4xl mx-auto py-12">
       {% if article.comments_count > 0 %}
         <h2 id="comments-title" class="text-2xl font-semibold mb-8 text-gray-800 text-center">
-          See what people are saying
+          What is everyone saying?
         </h2>
 
         {% paginate article.comments by 5 %}
@@ -84,7 +71,7 @@
                   datetime="{{ comment.created_at | date: '%Y-%m-%d' }}"
                   class="text-xs text-gray-400"
                 >
-                  {{ comment.created_at | date: format: 'default' }}
+                  {{ comment.created_at | date: format: 'on_date' }}
                 </time>
               </header>
               <div itemprop="text" class="text-sm text-gray-700 leading-relaxed">
@@ -104,10 +91,9 @@
       {% endif %}
     </section>
 
-    <!-- 📝 Comment Form -->
+    // Comment Form
     <section id="comment_form" aria-labelledby="comment-form-title" class="max-w-4xl mx-auto py-12">
       <h2 id="comment-form-title" class="text-2xl font-semibold text-center mb-6 text-gray-800">Leave a Comment</h2>
-
       <div class="bg-white shadow rounded-lg p-6 border border-gray-200">
         {% form 'new_comment', article %}
           {% if form.errors %}
@@ -129,7 +115,7 @@
               <div class="text-green-500 mr-2">
                 {% render 'icon-success' %}
               </div>
-              <p class="text-sm font-medium text-green-700">🎉 Your comment was submitted successfully!</p>
+              <p class="text-sm font-medium text-green-700">Your comment was submitted successfully!</p>
             </div>
           {% endif %}
 
@@ -183,10 +169,7 @@
   {% endif %}
 </article>
 
-{% comment %}
-  Schema Configuration
-  Defines settings and blocks available for this section in Shopify's theme editor
-{% endcomment %}
+// Schema Configuration // Defines settings and blocks available for this section in Shopify's theme editor
 {% schema %}
 {
   "name": "Template Article",
@@ -202,6 +185,12 @@
       "id": "enable_published_date",
       "default": true,
       "label": "Display Published Date"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_comments",
+      "default": true,
+      "label": "Display comments"
     }
   ],
   "blocks": [
