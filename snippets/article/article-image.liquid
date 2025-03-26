@@ -1,0 +1,12 @@
+<figure class="rounded-lg overflow-hidden shadow-lg py-4" itemprop="image">
+  {% if article.image %}
+    <img
+      class="w-full h-80 md:h-96 object-cover p-5"
+      src="{{ article.image | img_url: 'large' }}"
+      alt="{{ article.image.alt }}"
+    >
+  {% else %}
+    {% assign placeholder_image = 'lifestyle-2' %}
+    {{ placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover p-5' }}
+  {% endif %}
+</figure>

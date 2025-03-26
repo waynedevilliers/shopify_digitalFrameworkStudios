@@ -1,0 +1,13 @@
+{% if section.settings.enable_author %}
+  <p class="text-center text-gray-600 text-sm" itemscope itemtype="https://schema.org/Person" itemprop="author">
+    By {{ article.author }}
+  </p>
+{% endif %}
+
+{% if section.settings.enable_published_date %}
+  <p class="text-center text-gray-500 text-sm">
+    <time itemprop="datePublished dateCreated" datetime="{{ article.published_at | date: format: 'on_date' }}">
+      {{ article.published_at | date: format: 'on_date' }}
+    </time>
+  </p>
+{% endif %}
