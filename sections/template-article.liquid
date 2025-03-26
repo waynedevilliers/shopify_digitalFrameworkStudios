@@ -1,14 +1,14 @@
 <article class="py-8 md:py-16 max-w-7xl mx-auto" itemscope itemtype="https://schema.org/BlogPosting">
   {% for block in section.blocks %}
     {% case block.type %}
-        // Article Title Section
+        <!-- Blog title and article headline -->
       {% when 'article_title' %}
         <header class="text-center">
           <a href="{{ blog.url }}" class="text-black hover:text-blue-700">{{ blog.title }}</a>
           <h1 class="text-4xl md:text-6xl font-medium" itemprop="headline">{{ article.title }}</h1>
         </header>
 
-        // Author Section
+        <!-- Article author (conditionally rendered) -->
       {% when 'article_author' %}
         {% if section.settings.enable_author %}
           <p class="text-center text-gray-600 text-sm" itemscope itemtype="https://schema.org/Person" itemprop="author">
@@ -16,7 +16,7 @@
           </p>
         {% endif %}
 
-        // Published Date Section
+        <!-- Article published date (conditionally rendered) -->
       {% when 'article_published_date' %}
         {% if section.settings.enable_published_date %}
           <p class="text-center text-gray-500 text-sm">
@@ -26,9 +26,9 @@
           </p>
         {% endif %}
 
-        // Featured Image Section
+        <!-- Featured image (fallback to placeholder if missing) -->
       {% when 'featured_image' %}
-        <figure class="rounded-lg overflow-hidden shadow-lg py-4">
+        <figure class="rounded-lg overflow-hidden shadow-lg py-4" itemprop="image">
           {% if article.image %}
             <img
               class="w-full h-80 md:h-96 object-cover p-5"
@@ -41,15 +41,15 @@
           {% endif %}
         </figure>
 
-        // 📖 Article Content Section
+        <!-- Main article body -->
       {% when 'article_content' %}
-        <div class="prose max-w-4xl mx-auto">
+        <div class="prose max-w-4xl mx-auto" itemprop="articleBody">
           {{ article.content }}
         </div>
     {% endcase %}
   {% endfor %}
 
-  // Comments Section
+  <!-- Comments section (conditionally rendered) -->
   {% if section.settings.enable_comments and blog.comments_enabled? %}
     <section id="comments" aria-labelledby="comments-title" class="max-w-4xl mx-auto py-12">
       {% if article.comments_count > 0 %}
@@ -91,7 +91,7 @@
       {% endif %}
     </section>
 
-    // Comment Form
+    <!-- Comment submission form -->
     <section id="comment_form" aria-labelledby="comment-form-title" class="max-w-4xl mx-auto py-12">
       <h2 id="comment-form-title" class="text-2xl font-semibold text-center mb-6 text-gray-800">Leave a Comment</h2>
       <div class="bg-white shadow rounded-lg p-6 border border-gray-200">
@@ -169,7 +169,7 @@
   {% endif %}
 </article>
 
-// Schema Configuration // Defines settings and blocks available for this section in Shopify's theme editor
+<!-- Schema Configuration: Defines settings and blocks available in the Shopify Theme Editor -->
 {% schema %}
 {
   "name": "Template Article",
