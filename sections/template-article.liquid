@@ -87,11 +87,9 @@
             </article>
           {% endfor %}
 
-          {% if paginate.pages > 1 %}
-            <nav class="mt-6 text-center" role="navigation" aria-label="Pagination">
-              {{ paginate | default_pagination }}
-            </nav>
-          {% endif %}
+          <div class="max-w-6xl mx-auto">
+            {% render 'pagination', pagination: paginate %}
+          </div>
         {% endpaginate %}
       {% else %}
         <p class="text-center text-gray-500 text-sm">There are no comments on this article yet.</p>
