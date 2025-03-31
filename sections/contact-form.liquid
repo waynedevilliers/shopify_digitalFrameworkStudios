@@ -1,0 +1,80 @@
+{% comment %} Contact Form Section {% endcomment %}
+<section class="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-extrabold text-gray-900">Get in Touch</h2>
+    <p class="mt-4 text-lg text-gray-600">Have a question or want to work together? Drop me a message!</p>
+  </div>
+
+  {% form 'contact' %}
+    {% if form.posted_successfully? %}
+      <div class="mb-6 p-4 rounded bg-green-100 text-green-800">
+        Thanks for reaching out! I’ll get back to you soon.
+      </div>
+    {% elsif form.errors %}
+      <div class="mb-6 p-4 rounded bg-red-100 text-red-800">
+        <p class="font-semibold">Oops! Something went wrong:</p>
+        <ul class="mt-2 list-disc list-inside">
+          {% for field in form.errors %}
+            <li>{{ form.errors.messages[field] }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="grid grid-cols-1 gap-6">
+      <div>
+        <label for="ContactFormName" class="block text-sm font-medium text-gray-700">Name</label>
+        <input
+          type="text"
+          id="ContactFormName"
+          name="contact[name]"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="ContactFormEmail" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          type="email"
+          id="ContactFormEmail"
+          name="contact[email]"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="ContactFormMessage" class="block text-sm font-medium text-gray-700">Message</label>
+        <textarea
+          id="ContactFormMessage"
+          name="contact[body]"
+          rows="5"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          required
+        ></textarea>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700"
+        >
+          Send Message
+        </button>
+      </div>
+    </div>
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Contact Form"
+    }
+  ]
+}
+{% endschema %}
