@@ -62,5 +62,6 @@ Live link available on request.
 
 📬 Contact
 Wayne de Villiers
-🔗 LinkedIn
-📧 Email: available upon request
+🔗 [LinkedIn](https://www.linkedin.com/in/waynedevilliers/)
+📧 Email: wrdevilliers@gmail.com
+
