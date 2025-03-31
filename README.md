@@ -1,4 +1,5 @@
 Digital Frameworks Studios — Wayne de Villiers
+
 This repo includes custom Shopify theme sections I created while learning Shopify development. Each section was made with Liquid and styled using Tailwind CSS.
 
 1. 📝 Blog Article Template
