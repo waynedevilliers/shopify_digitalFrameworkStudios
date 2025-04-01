@@ -5,6 +5,7 @@
     "endfor",
     "endschema",
     "linklist",
-    "nowrap"
+    "nowrap",
+    "truncatewords"
   ]
 }

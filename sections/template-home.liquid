@@ -1,0 +1,68 @@
+{% comment %} Home Page Template {% endcomment %}
+
+<section class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <h1 class="text-4xl md:text-6xl font-bold text-gray-900">Hi, I'm Wayne de Villiers</h1>
+    <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+      I'm a junior full-stack developer focused on building beautiful, fast Shopify stores. Explore my work below or get
+      in touch!
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="/blogs/news" class="px-6 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-700"> View Blog </a>
+      <a
+        href="/collections/all"
+        class="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100"
+      >
+        View Catalog
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-3xl font-semibold text-center text-gray-900 mb-12">Featured Case Studies</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Blog post cards -->
+      {% for article in blogs.news.articles limit: 2 %}
+        <a href="{{ article.url }}" class="bg-white shadow rounded-lg overflow-hidden hover:shadow-md transition">
+          {% if article.image %}
+            <img
+              src="{{ article.image | img_url: '720x480' }}"
+              alt="{{ article.title }}"
+              class="w-full h-48 object-cover"
+            >
+          {% endif %}
+          <div class="p-5">
+            <h3 class="text-xl font-semibold text-gray-800">{{ article.title }}</h3>
+            <p class="mt-2 text-gray-600 text-sm">{{ article.excerpt | strip_html | truncatewords: 20 }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="bg-white py-16">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-2xl font-semibold text-gray-900">Want to collaborate?</h2>
+    <p class="mt-4 text-gray-600">
+      Check out my contact page or drop me a message to talk about freelance or junior developer opportunities.
+    </p>
+    <a href="/pages/contact" class="mt-6 inline-block px-6 py-3 bg-black text-white rounded-md hover:bg-blue-500">
+      Contact Me
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Home"
+    }
+  ]
+}
+{% endschema %}
