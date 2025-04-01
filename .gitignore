@@ -1,23 +1,6 @@
-# Node modules and build artifacts
 node_modules/
 dist/
-.vscode/
 .env
+.vscode/
 .DS_Store
 *.log
-
-# Shopify CLI ignore file
-.shopignore
-
-# OS generated files
-Thumbs.db
-ehthumbs.db
-
-# Build & cache
-*.zip
-*.tar.gz
-.cache/
-*.tmp
-
-# Other
-*.local

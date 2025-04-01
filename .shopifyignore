@@ -1,22 +1,8 @@
-# Node.js project files
-
+node_modules/_
+.vscode/_
+dist/_
+.env
 package.json
 package-lock.json
-node_modules/
-
-# Local development files
-
-.vscode/
-.env
-README.md
-
-# Build output
-
-dist/
-_.log
-_.zip
-
-# Git metadata
-
-.git/
+.git/_
 .gitignore
