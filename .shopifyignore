@@ -1,4 +1,22 @@
+# Node.js project files
+
 package.json
 package-lock.json
-css
-node_modules
+node_modules/
+
+# Local development files
+
+.vscode/
+.env
+README.md
+
+# Build output
+
+dist/
+_.log
+_.zip
+
+# Git metadata
+
+.git/
+.gitignore
