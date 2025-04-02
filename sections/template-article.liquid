@@ -38,7 +38,7 @@
         <figure class="rounded-lg overflow-hidden py-2" itemprop="image">
           {% if article.image %}
             <img
-              class="w-full h-80 md:h-96 object-cover p-5"
+              class="w-full h-96 object-contain p-5"
               src="{{ article.image | img_url: 'large' }}"
               alt="{{ article.image.alt }}"
             >
