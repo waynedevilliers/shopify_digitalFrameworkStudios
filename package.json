@@ -9,7 +9,8 @@
     "dev-sync": "shopify theme dev --theme-editor-sync --store digitalframeworkstudios.myshopify.com",
     "pull": "shopify theme pull --store digitalframeworkstudios.myshopify.com",
     "push": "shopify theme push --store digitalframeworkstudios.myshopify.com",
-    "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/application.css --watch"
+    "build": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css",
+    "watch": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch"
   },
   "keywords": [],
   "author": "",
