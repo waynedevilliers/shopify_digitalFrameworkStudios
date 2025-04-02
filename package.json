@@ -4,12 +4,33 @@
   "description": "[![Generic badge](https://img.shields.io/badge/course%20available%3F-yes-green.svg)](https://shields.io/)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "shopify theme dev --store digitalframeworkstudios.myshopify.com",
+    "dev-sync": "shopify theme dev --theme-editor-sync --store digitalframeworkstudios.myshopify.com",
+    "pull": "shopify theme pull --store digitalframeworkstudios.myshopify.com",
+    "push": "shopify theme push --store digitalframeworkstudios.myshopify.com",
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/application.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tailwindcss": "^4.0.14"
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.1"
+  },
+  "dependencies": {
+    "browserslist": "^4.24.4",
+    "caniuse-lite": "^1.0.30001707",
+    "electron-to-chromium": "^1.5.129",
+    "escalade": "^3.2.0",
+    "fraction.js": "^4.3.7",
+    "nanoid": "^3.3.11",
+    "node-releases": "^2.0.19",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.1.1",
+    "postcss-value-parser": "^4.2.0",
+    "source-map-js": "^1.2.1",
+    "update-browserslist-db": "^1.1.3"
   }
 }
