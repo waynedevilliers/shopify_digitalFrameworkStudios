@@ -11,7 +11,10 @@
   "sections": {
     "template": {
       "type": "template-blog",
-      "settings": {}
+      "settings": {
+        "blog_read_more": "Read More",
+        "number_of_blog_posts": 4
+      }
     }
   },
   "order": [
